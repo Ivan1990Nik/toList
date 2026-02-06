@@ -1,6 +1,6 @@
 .todo-row {
   display: grid;
-  grid-template-columns: 100px 1fr 100px;
+  grid-template-columns: 100px 1fr 100px 100px;
   align-items: center;
   gap: 25px;
 
@@ -8,7 +8,26 @@
   border-bottom: 1px solid #eee;
 
 }
+
 .btn {
     position: relative;
+}
+.importance {
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: white; /* цвет текста по умолчанию */
+}
+
+.todo-row.low {
+  background-color: green;
+}
+
+.todo-row.medium {
+  background-color: orange;
+}
+
+.todo-row.high {
+  background-color: red;
 }
 

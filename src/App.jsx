@@ -5,10 +5,10 @@ import TodoList from "./components/todoList/TodoList";
 import { useAuth } from "./hooks/useAuth";
 import { useTodos } from "./hooks/useTodos";
 
-
 function App() {
   const { user, signUp, signIn, signOut } = useAuth();
-  const { activeTodos, completedTodos, addTodo, toggleTodo, deleteTodo } = useTodos(user);
+  const { activeTodos, completedTodos, addTodo, toggleTodo, deleteTodo } =
+    useTodos(user);
 
   if (!user) return <AuthForm onSignUp={signUp} onSignIn={signIn} />;
 
@@ -18,9 +18,17 @@ function App() {
       <button onClick={signOut}>Выйти</button>
       <TodoInput onAdd={addTodo} />
       <h2>Задачи</h2>
-      <TodoList todos={activeTodos} onToggle={toggleTodo} onDelete={deleteTodo} />
+      <TodoList
+        todos={activeTodos}
+        onToggle={toggleTodo}
+        onDelete={deleteTodo}
+      />
       <h2>Completed</h2>
-      <TodoList todos={completedTodos} onToggle={toggleTodo} onDelete={deleteTodo} />
+      <TodoList
+        todos={completedTodos}
+        onToggle={toggleTodo}
+        onDelete={deleteTodo}
+      />
     </>
   );
 }

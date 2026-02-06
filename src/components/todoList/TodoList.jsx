@@ -9,6 +9,7 @@ function TodoList({ todos, onToggle, onDelete }) {
       <div className="todo-row">
         <div>Выполнено</div>
         <div>Название</div>
+        <div>важность</div>
         <div>Удалить</div>
       </div>
 
