@@ -5,6 +5,7 @@ width: 230px;
 
 .auth-form input{
 font-size: 18px;
+margin-bottom: 10px;
 }
 .toggle-mode {
   position: relative;
