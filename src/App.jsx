@@ -10,13 +10,21 @@ function App() {
   const { activeTodos, completedTodos, addTodo, toggleTodo, deleteTodo } =
     useTodos(user);
 
-  if (!user) return <AuthForm onSignUp={signUp} onSignIn={signIn} />;
+  if (!user)
+    return (
+      <div>
+        <h2>Твой ежедневник</h2>
+        <div className="home_registration">
+          <AuthForm onSignUp={signUp} onSignIn={signIn} />
+        </div>
+      </div>
+    );
 
   return (
     <>
       <h1>ToDo List</h1>
       <button onClick={signOut}>Выйти</button>
-      <TodoInput onAdd={addTodo} />
+      <TodoInput onAdd={addTodo} user={user} />
       <h2>Задачи</h2>
       <TodoList
         todos={activeTodos}
