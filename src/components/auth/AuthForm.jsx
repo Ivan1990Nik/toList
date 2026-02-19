@@ -42,6 +42,7 @@ export default function AuthForm({ onSignUp, onSignIn }) {
       <button className="btn" onClick={buttonAction}>
         {buttonText}
       </button>
+      
       <p className="toggle-mode" onClick={toggleMode}>
         {toggleText}
       </p>

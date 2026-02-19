@@ -1,8 +1,40 @@
 
 .auth-form {
-width: 200px;
+width: 230px;
+}
+
+.auth-form input{
+font-size: 18px;
+}
+.toggle-mode {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  transition: color 0.25s ease;
+}
+
+.toggle-mode::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: rgb(115, 192, 206);
+
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+
+.toggle-mode:hover::after {
+  transform: scaleX(1);
 }
 
 .toggle-mode:hover {
-  border-bottom: 1px solid red;
+  color: rgb(102, 102, 102);
+}
+
+.btn {
+  margin-right: 10px;
 }
