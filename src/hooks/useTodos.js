@@ -3,21 +3,36 @@ import { supabase } from "../lib/supabase";
 
 export function useTodos(user) {
   const [todos, setTodos] = useState([]);
+  const [loading, setLoading] = useState(true); // ← ДОБАВИЛИ loading
+  const [error, setError] = useState(null);
 
   const fetchTodos = async () => {
-    if (!user) return;
-    const { data, error } = await supabase
-      .from("todos")
-      .select("*")
-      .eq("user_id", user.id)
-      .order("created_at", { ascending: true });
-    if (error) console.error(error);
-    else setTodos(data);
+    if (!user) {
+      setTodos([]);
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const { data, error } = await supabase
+        .from("todos")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: true });
+
+      if (error) throw error;
+      setTodos(data || []);
+    } catch (err) {
+      console.error("Ошибка загрузки задач:", err.message);
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
     fetchTodos();
-  }, [user]);
+  }, [user]); // ← Зависимость: user
 
   const addTodo = async ({ title, value }) => {
     if (!user) return;
@@ -58,5 +73,7 @@ export function useTodos(user) {
     toggleTodo,
     deleteTodo,
     fetchTodos,
+    loading, // ← ВОЗВРАЩАЕМ loading
+    error,   // ← И error для единообразия
   };
 }

@@ -1,49 +1,39 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabase";
 
-/**
- * useProfile — хук для подгрузки профиля пользователя
- * @param {Object} user - объект пользователя из supabase.auth
- * @returns {Object} { profile, loading, error }
- */
 export function useProfile(user) {
   const [profile, setProfile] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); // ← Начинаем с loading: true
   const [error, setError] = useState(null);
 
-useEffect(() => {
+  useEffect(() => {
+    const fetchProfile = async () => {
+      // Если пользователь не передан — завершаем загрузку как "готово, но без профиля"
+      if (!user) {
+        setProfile(null);
+        setLoading(false); // ← ВАЖНО: завершаем загрузку, потому что ждать нечего
+        return;
+      }
 
-  const fetchProfile = async () => {
-    setLoading(true);
-    try {
-      const { data, error } = await supabase
-        .from("profiles")
-        .select("user_name")
-        .eq("id", user.id)
-        .single(); // берём только одну запись
+      try {
+        const { data, error } = await supabase
+          .from("profiles")
+          .select("user_name")
+          .eq("id", user.id)
+          .single();
 
-      if (error) throw error;
-      setProfile(data);
-    } catch (err) {
-      console.error("Ошибка загрузки профиля:", err.message);
-      setError(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+        if (error) throw error;
+        setProfile(data);
+      } catch (err) {
+        console.error("Ошибка загрузки профиля:", err.message);
+        setError(err);
+      } finally {
+        setLoading(false); // ← Загрузка завершена — независимо от результата
+      }
+    };
 
     fetchProfile();
-
-    if (!user?.id) {
-      setProfile(null);
-      setLoading(false);
-      return;
-    }
-  }, [user?.id]);
-
-
-
-  
+  }, [user]); // ← Зависимость: user (не user.id — чтобы отлавливать смену с null на объект)
 
   return { profile, loading, error };
 }

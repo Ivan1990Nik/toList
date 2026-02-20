@@ -1,51 +1,20 @@
 import "./App.css";
-import AuthForm from "./components/auth/AuthForm";
-import TodoInput from "./components/todoInput/TodoInput";
-import TodoList from "./components/todoList/TodoList";
+import AuthHome from "./pages/home/AuthHome";
 import { useAuth } from "./hooks/useAuth";
-import { useTodos } from "./hooks/useTodos";
-import { useProfile } from "./hooks/useProfile";
+import TodoHome from "./pages/todoHome/TodoHome";
+import Header from "./components/header/Header";
 
 function App() {
-  const { user, signUp, signIn, signOut } = useAuth();
-  const { profile, loading } = useProfile(user);
-  const { activeTodos, completedTodos, addTodo, toggleTodo, deleteTodo } =
-    useTodos(user);
+  const { user } = useAuth();
 
-  // Если пользователь не залогинен — показываем форму авторизации
-  if (!user)
-    return (
-      <div>
-        <h2>Твой ежедневник</h2>
-        <div className="home_registration">
-          <AuthForm onSignUp={signUp} onSignIn={signIn} />
-        </div>
-      </div>
-    );
+  // Обработка ошибок загрузки (оставляем как есть)
+  // (если у вас есть ошибки в useAuth — их тоже можно обработать здесь)
 
-  // Если пользователь залогинен — показываем todo и имя
   return (
-    <>
-      <h2>Твой ежедневник</h2>
-      <p>добро пожаловать!!! {loading ? "Загрузка..." : profile?.user_name}</p>
-      <button onClick={signOut}>Выйти</button>
-
-      <TodoInput onAdd={addTodo} user={user} />
-
-      <h2>Задачи</h2>
-      <TodoList
-        todos={activeTodos}
-        onToggle={toggleTodo}
-        onDelete={deleteTodo}
-      />
-
-      <h2>Выполненные</h2>
-      <TodoList
-        todos={completedTodos}
-        onToggle={toggleTodo}
-        onDelete={deleteTodo}
-      />
-    </>
+    <div className="App">
+      <Header user={user}/>
+      {!user ? <AuthHome /> : <TodoHome user={user} />}
+    </div>
   );
 }
 

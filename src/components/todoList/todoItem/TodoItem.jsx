@@ -20,7 +20,7 @@ function TodoItem({ todo, onToggle, onDelete }) {
         {importanceMap[todo.importance]}
       </span>
 
-      <button onClick={() => onDelete(todo.id)}>Удалить</button>
+      <button className="todo-delete" onClick={() => onDelete(todo.id)}>Удалить</button>
     </div>
   );
 }
