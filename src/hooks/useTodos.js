@@ -19,15 +19,15 @@ export function useTodos(user) {
     fetchTodos();
   }, [user]);
 
-  const addTodo = async ({title, value}) => {
+  const addTodo = async ({ title, value }) => {
     if (!user) return;
     const { data, error } = await supabase
       .from("todos")
-      .insert([{ title, done: false,  importance: value, user_id: user.id }])
+      .insert([{ title, done: false, importance: value, user_id: user.id }])
       .select()
       .single();
     if (error) console.error(error);
-    else setTodos(prev => [...prev, data]);
+    else setTodos((prev) => [...prev, data]);
   };
 
   const toggleTodo = async (id, done) => {
@@ -38,20 +38,25 @@ export function useTodos(user) {
       .select()
       .single();
     if (error) console.error(error);
-    else setTodos(prev => prev.map(t => t.id === id ? data : t));
+    else setTodos((prev) => prev.map((t) => (t.id === id ? data : t)));
   };
 
   const deleteTodo = async (id) => {
-    const { error } = await supabase
-      .from("todos")
-      .delete()
-      .eq("id", id);
+    const { error } = await supabase.from("todos").delete().eq("id", id);
     if (error) console.error(error);
-    else setTodos(prev => prev.filter(t => t.id !== id));
+    else setTodos((prev) => prev.filter((t) => t.id !== id));
   };
 
-  const activeTodos = todos.filter(t => !t.done);
-  const completedTodos = todos.filter(t => t.done);
+  const activeTodos = todos.filter((t) => !t.done);
+  const completedTodos = todos.filter((t) => t.done);
 
-  return { todos, activeTodos, completedTodos, addTodo, toggleTodo, deleteTodo, fetchTodos };
+  return {
+    todos,
+    activeTodos,
+    completedTodos,
+    addTodo,
+    toggleTodo,
+    deleteTodo,
+    fetchTodos,
+  };
 }

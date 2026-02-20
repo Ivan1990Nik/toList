@@ -19,10 +19,26 @@ export function useAuth() {
     return () => listener.subscription.unsubscribe();
   }, []);
 
-  const signUp = async (email, password) => {
+  const signUp = async (email, password, userName) => {
     const { data, error } = await supabase.auth.signUp({ email, password });
     if (error) throw error;
-    return data.user;
+
+    const newUser = data.user;
+
+    // важно проверить что пользователь создался
+    if (!newUser) {
+      throw new Error("Пользователь не создан");
+    }
+    // 2. создаем профиль в profiles
+    const { error: profileError } = await supabase.from("profiles").insert([
+      {
+        id: newUser.id, // связь с auth.users
+        user_name: userName, // сохраняем имя пользователя
+      },
+    ]);
+    if (profileError) throw profileError;
+
+    return newUser;
   };
 
   const signIn = async (email, password) => {
