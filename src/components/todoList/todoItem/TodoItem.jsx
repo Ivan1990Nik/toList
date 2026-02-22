@@ -8,7 +8,7 @@ const importanceMap = {
 
 function TodoItem({ todo, onToggle, onDelete }) {
   return (
-    <div  className={`todo-row ${todo.importance}`}>
+    <div className={`todo-row ${todo.importance}`}>
       <input
         type="checkbox"
         checked={todo.done}
@@ -16,11 +16,11 @@ function TodoItem({ todo, onToggle, onDelete }) {
       />
 
       <span className={todo.done ? "done" : ""}>{todo.title}</span>
-      <span>
-        {importanceMap[todo.importance]}
-      </span>
+      <span>{importanceMap[todo.importance]}</span>
 
-      <button className="todo-delete" onClick={() => onDelete(todo.id)}>Удалить</button>
+      <button className="todo-delete" onClick={() => onDelete(todo.id)}>
+        X
+      </button>
     </div>
   );
 }

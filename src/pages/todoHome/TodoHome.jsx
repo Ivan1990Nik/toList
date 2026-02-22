@@ -1,13 +1,10 @@
 import "./todoHome.css";
 import TodoInput from "../../components/todoInput/TodoInput";
 import TodoList from "../../components/todoList/TodoList";
-
-import { useProfile } from "../../hooks/useProfile";
 import { useTodos } from "../../hooks/useTodos";
 
 // Принимаем user как пропс — он приходит из App.js
 export default function TodoHome({ user }) {
-  const { profile } = useProfile(user);
   const { activeTodos, completedTodos, addTodo, toggleTodo, deleteTodo } =
     useTodos(user);
 
@@ -17,7 +14,6 @@ export default function TodoHome({ user }) {
     <div className="dashboard">
       <h2>Твой ежедневник</h2>
    
-      <p>Добро пожаловать! {profile?.user_name || "Пользователь"}</p>
 
       <TodoInput onAdd={addTodo} user={user} />
 

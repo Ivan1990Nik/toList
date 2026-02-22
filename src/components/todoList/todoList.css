@@ -12,6 +12,9 @@ margin-top: 20px;
 font-weight: bold;
 border-bottom: 2px solid #000;
 }
+.todo-row {
+font-size: 15px;
+}
 
 
 .todo-row .done {

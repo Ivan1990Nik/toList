@@ -1,8 +1,8 @@
 .todo-row {
   display: grid;
-  grid-template-columns: 100px 1fr 100px 100px ;
+  grid-template-columns: 50px 1fr 70px 70px ;
   align-items: center;
-  gap: 25px;
+  gap: 5px;
 
   padding: 10px 12px;
   border-bottom: 1px solid #eee;
@@ -32,6 +32,10 @@
 }
 
 .todo-delete {
-
-  margin: 0px;
+  color: red;
+padding: 0;
+  margin: 0px 40%;
+  width: 20px;
+  display: flex;
+  justify-content: center;
 }
