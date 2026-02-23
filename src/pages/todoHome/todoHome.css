@@ -14,4 +14,29 @@
   margin-bottom: 20px;
 }
 
+.dashbord-nav {
+  display: flex;
+  justify-content: space-around;
 
+  margin-bottom: 20;
+}
+
+/* Базовый стиль ссылок */
+.nav-link {
+  text-decoration: none;
+  color: #d4a5a5;
+  font-weight: 500;
+}
+
+/* Активная вкладка – подчеркнута */
+.nav-link.active {
+  text-decoration: underline;
+  color: #007bff; /* можно изменить под свою схему цветов */
+}
+
+/* При желании добавить плавность */
+.nav-link {
+  transition:
+    color 0.2s,
+    text-decoration 0.2s;
+}

@@ -19,7 +19,6 @@ function AuthHome() {
   if (!user)
     return (
       <div>
-        <h2>Твой ежедневник</h2>
         <div className="home_registration">
           <AuthForm onSignUp={signUp} onSignIn={signIn} />
         </div>

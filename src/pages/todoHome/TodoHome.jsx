@@ -2,9 +2,8 @@ import "./todoHome.css";
 import TodoInput from "../../components/todo/todoInput/TodoInput";
 import TodoList from "../../components/todo/todoList/TodoList";
 import { useTodos } from "../../hooks/useTodos";
-import { Link, Route, Routes } from "react-router-dom";
+import { NavLink, Route, Routes } from "react-router-dom";
 
-// Принимаем user как пропс — он приходит из App.js
 export default function TodoHome({ user }) {
   const { activeTodos, completedTodos, addTodo, toggleTodo, deleteTodo } =
     useTodos(user);
@@ -12,23 +11,41 @@ export default function TodoHome({ user }) {
   return (
     <div className="dashboard">
       {/* Навигация */}
-      <nav style={{ display: "flex", gap: 16, marginBottom: 20 }}>
-        <Link end to="/todo">
+      <nav className="dashbord-nav" style={{}}>
+        <NavLink
+          end
+          to="/todo"
+          className={({ isActive }) =>
+            isActive ? "nav-link active" : "nav-link"
+          }
+        >
           Текущие
-        </Link>
-        <Link to="/completed">Выполненные</Link>
-        <Link to="/add">Добавить</Link>
+        </NavLink>
+
+        <NavLink
+          to="/completed"
+          className={({ isActive }) =>
+            isActive ? "nav-link active" : "nav-link"
+          }
+        >
+          Выполненные
+        </NavLink>
+
+        <NavLink
+          to="/add"
+          className={({ isActive }) =>
+            isActive ? "nav-link active" : "nav-link"
+          }
+        >
+          Добавить
+        </NavLink>
       </nav>
 
       {/* Заголовок */}
       <h2>Твой ежедневник</h2>
 
-      {/* Компонент для добавления задачи – всегда виден */}
-     
-
       {/* Маршрутизация внутри страницы */}
       <Routes>
-        {/* Текущие задачи */}
         <Route
           path="todo"
           element={
@@ -43,7 +60,6 @@ export default function TodoHome({ user }) {
           }
         />
 
-        {/* Выполненные задачи */}
         <Route
           path="completed"
           element={
@@ -57,7 +73,7 @@ export default function TodoHome({ user }) {
             </div>
           }
         />
-         
+
         <Route path="add" element={<TodoInput onAdd={addTodo} user={user} />} />
       </Routes>
     </div>
