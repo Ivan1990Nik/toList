@@ -74,7 +74,15 @@ export default function TodoHome({ user }) {
           }
         />
 
-        <Route path="add" element={<TodoInput onAdd={addTodo} user={user} />} />
+        <Route
+          path="add"
+          element={
+            <div>
+              <h2>добавить задачу</h2>
+              <TodoInput onAdd={addTodo} user={user} />
+            </div>
+          }
+        />
       </Routes>
     </div>
   );

@@ -2,8 +2,8 @@
   min-width: 400px;
   display: flex;
   align-items: center;
-   justify-content: space-between;
-   border-bottom: 1px solid rgb(173, 125, 125);
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(173, 125, 125);
 }
 .header-auth {
   display: flex;
@@ -13,4 +13,28 @@
   align-items: center;
   display: flex;
   margin-right: 3px;
+}
+
+.header-nav button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 3px;
+  opacity: 0.6;
+  transition: 0.2s;
+  outline: none;
+}
+
+.header-nav button:hover {
+  opacity: 1;
+
+  transform: scale(1.1);
+}
+
+.header-nav button.active {
+  opacity: 1;
+  color: #4caf50;
+  border: none;
+  outline: none;
+  box-shadow: none;
 }
