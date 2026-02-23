@@ -9,14 +9,14 @@ export function useTransactions() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // загрузка транзакций
+  // загрузка транзакций при монтировании и при смене пользователя
   useEffect(() => {
     if (!user) {
       setTransactions([]);
       return;
     }
 
-    fetchTransactions();
+    fetchTransactions(); // <-- вызываем здесь
   }, [user]);
 
   async function fetchTransactions() {
@@ -39,7 +39,6 @@ export function useTransactions() {
     setLoading(false);
   }
 
-  // добавить транзакцию
   async function addTransaction({ amount, type, category, description }) {
     const { data, error } = await supabase
       .from("transactions")
@@ -63,7 +62,6 @@ export function useTransactions() {
     setTransactions(prev => [data, ...prev]);
   }
 
-  // удалить транзакцию
   async function deleteTransaction(id) {
     const { error } = await supabase
       .from("transactions")
@@ -78,7 +76,6 @@ export function useTransactions() {
     setTransactions(prev => prev.filter(t => t.id !== id));
   }
 
-  // расчёты
   const income = transactions
     .filter(t => t.type === "income")
     .reduce((sum, t) => sum + Number(t.amount), 0);
@@ -93,11 +90,9 @@ export function useTransactions() {
     transactions,
     loading,
     error,
-
     addTransaction,
     deleteTransaction,
     fetchTransactions,
-
     income,
     expense,
     balance,

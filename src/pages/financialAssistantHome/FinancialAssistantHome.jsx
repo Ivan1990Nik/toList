@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useTransactions } from "../../hooks/useTransactions";
+import "./financialAssistantHome.css"; // отдельный css
 
 function FinancialAssistantHome() {
   const {
@@ -34,56 +35,80 @@ function FinancialAssistantHome() {
   }
 
   return (
-    <div>
+    <div className="finance-wrapper">
       <h2>Баланс: {balance}</h2>
       <p>Доходы: {income}</p>
       <p>Расходы: {expense}</p>
 
-      {/* Форма добавления */}
-      <form onSubmit={handleSubmit}>
+      {/* Форма */}
+      <form className="todo-input-wrapper" onSubmit={handleSubmit}>
         <input
           type="number"
           placeholder="Сумма"
+          className="style-input"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
         />
         <input
           type="text"
           placeholder="Название"
+          className="style-input"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
         <input
           type="text"
           placeholder="Категория"
+          className="style-input"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
         />
-        <select value={type} onChange={(e) => setType(e.target.value)}>
-          <option value="income">Доход</option>
-          <option value="expense">Расход</option>
-        </select>
-        <button type="submit">Добавить</button>
+
+        <div className="priority-buttons">
+          <button
+            type="button"
+            className={`priority-btn ${type === "income" ? "selected" : ""}`}
+            onClick={() => setType("income")}
+          >
+            Доход
+          </button>
+          <button
+            type="button"
+            className={`priority-btn ${type === "expense" ? "selected" : ""}`}
+            onClick={() => setType("expense")}
+          >
+            Расход
+          </button>
+        </div>
+
+        <button type="submit" className="add-btn">
+          Добавить
+        </button>
       </form>
 
       {/* Список транзакций */}
       <h3>История:</h3>
-      {transactions.map((t) => (
-        <div key={t.id} style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-          <span style={{ color: t.type === "income" ? "green" : "red" }}>
-            {t.type === "income" ? "+" : "-"}{t.amount}
-          </span>
-          <span>{t.description}</span>
-          <span>({t.category})</span>
-          <button
-            onClick={() => deleteTransaction(t.id)}
-            style={{ color: "white", background: "red", border: "none", padding: "2px 6px", cursor: "pointer" }}
-          >
-            Удалить
-          </button>
-        </div>
-      ))}
+<div className="transactions-list">
+  {transactions.map((t) => (
+    <div key={t.id} className="transaction-item">
+      <div className="transaction-info">
+        <span className={`transaction-amount ${t.type}`}>
+          {t.type === "income" ? "+" : "-"}{t.amount}
+        </span>
+        <span>{t.description}</span>
+        <span>({t.category})</span>
+      </div>
+      <button
+        onClick={() => deleteTransaction(t.id)}
+        className="delete-btn"
+      >
+        Удалить
+      </button>
     </div>
+  ))}
+</div>
+</div>
+
   );
 }
 
