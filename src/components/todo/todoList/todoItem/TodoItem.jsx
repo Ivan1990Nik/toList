@@ -16,7 +16,7 @@ function TodoItem({ todo, onToggle, onDelete }) {
       />
 
       <span className={todo.done ? "done" : ""}>{todo.title}</span>
-      <span>{importanceMap[todo.importance]}</span>
+      {/* <span>{importanceMap[todo.importance]}</span> */}
 
       <button className="todo-delete" onClick={() => onDelete(todo.id)}>
         X

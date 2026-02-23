@@ -1,5 +1,5 @@
 import "./App.css";
-import AuthHome from "./pages/home/AuthHome";
+import AuthHome from "./pages/authHome/AuthHome";
 import { useAuth } from "./hooks/useAuth";
 import TodoHome from "./pages/todoHome/TodoHome";
 import Header from "./components/header/Header";

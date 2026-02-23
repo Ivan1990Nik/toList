@@ -1,5 +1,5 @@
 import { useAuth } from "../../hooks/useAuth";
-import AuthForm from "../auth/AuthForm";
+import AuthForm from "../../components/auth/AuthForm";
 function AuthHome() {
   const { user, signUp, signIn, error: authError } = useAuth();
 
