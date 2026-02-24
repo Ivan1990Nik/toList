@@ -7,14 +7,23 @@ function TodoInput({ onAdd }) {
   const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
-  const [value, setValue] = useState("medium"); // начальный приоритет
+  const [value, setValue] = useState("medium"); // приоритет
+  const [dueDate, setDueDate] = useState(""); // новая дата
 
   const handleAdd = () => {
     if (!title.trim()) return;
-    onAdd({ title, value });
-    // сбрасываем форму после добавления
+
+    onAdd({
+      title,
+      value,
+      dueDate, // передаем дату
+    });
+
+    // сброс формы
     setTitle("");
     setValue("medium");
+    setDueDate("");
+
     navigate("/todo");
   };
 
@@ -26,7 +35,7 @@ function TodoInput({ onAdd }) {
 
   return (
     <div className="todo-input-wrapper">
-      {/* Поле ввода названия задачи */}
+      {/* Название */}
       <input
         className="style-input"
         value={title}
@@ -34,15 +43,22 @@ function TodoInput({ onAdd }) {
         placeholder="Название задачи"
       />
 
-      {/* Кнопки приоритетов */}
+      {/* Дата выполнения */}
+      <p>устоновить конечную дату</p>
+      <input
+        className="style-input"
+        type="date"
+        value={dueDate}
+        onChange={(e) => setDueDate(e.target.value)}
+      />
+
+      {/* Приоритет */}
       <div className="priority-buttons">
         {priorities.map((p) => (
           <button
             key={p.id}
-            type="button"                     // <-- важно!
-            className={`priority-btn ${
-              value === p.id ? "selected" : ""
-            }`}
+            type="button"
+            className={`priority-btn ${value === p.id ? "selected" : ""}`}
             onClick={() => setValue(p.id)}
           >
             {p.label}
@@ -50,7 +66,7 @@ function TodoInput({ onAdd }) {
         ))}
       </div>
 
-      {/* Кнопка «Добавить» */}
+      {/* Добавить */}
       <button className="add-btn" onClick={handleAdd}>
         Добавить
       </button>

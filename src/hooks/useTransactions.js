@@ -15,10 +15,10 @@ export function useTransactions() {
       setTransactions([]);
       return;
     }
-
+    
     fetchTransactions(); // <-- вызываем здесь
   }, [user]);
-
+  
   async function fetchTransactions() {
     setLoading(true);
     setError(null);

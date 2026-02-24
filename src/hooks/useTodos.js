@@ -34,11 +34,11 @@ export function useTodos(user) {
     fetchTodos();
   }, [user]); // ← Зависимость: user
 
-  const addTodo = async ({ title, value }) => {
+  const addTodo = async ({ title, value, dueDate }) => {
     if (!user) return;
     const { data, error } = await supabase
       .from("todos")
-      .insert([{ title, done: false, importance: value, user_id: user.id }])
+      .insert([{ title, done: false, importance: value, user_id: user.id, dueDate }])
       .select()
       .single();
     if (error) console.error(error);

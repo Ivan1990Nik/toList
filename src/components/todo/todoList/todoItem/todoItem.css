@@ -1,16 +1,17 @@
 .todo-row {
   display: grid;
-  grid-template-columns: 60px 1fr  70px ;
+  grid-template-columns: 60px 1fr 80px 60px 40px;
   align-items: center;
   gap: 5px;
 
   padding: 10px 12px;
   border-bottom: 1px solid #eee;
 
+  transition: background 0.5s linear;
 }
 
 .btn {
-    position: relative;
+  position: relative;
 }
 .importance {
   font-weight: bold;
@@ -33,9 +34,15 @@
 
 .todo-delete {
   color: red;
-padding: 0;
+  padding: 0;
   margin: 0px 40%;
   width: 20px;
   display: flex;
   justify-content: center;
+}
+
+
+.percent {
+  font-weight: bold;
+  text-align: center;
 }

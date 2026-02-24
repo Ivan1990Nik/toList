@@ -88,27 +88,28 @@ function FinancialAssistantHome() {
 
       {/* Список транзакций */}
       <h3>История:</h3>
-<div className="transactions-list">
-  {transactions.map((t) => (
-    <div key={t.id} className="transaction-item">
-      <div className="transaction-info">
-        <span className={`transaction-amount ${t.type}`}>
-          {t.type === "income" ? "+" : "-"}{t.amount}
-        </span>
-        <span>{t.description}</span>
-        <span>({t.category})</span>
+      <div className="transactions-list">
+        {transactions.map((t) => (
+          <div key={t.id} className="transaction-item">
+            <div className="transaction-info">
+              <span className={`transaction-amount ${t.type}`}>
+                {t.type === "income" ? "+" : "-"}
+                {t.amount}
+              </span>
+              <span>{t.description}</span>
+              <span>({t.category})</span>
+              <span>({new Date(t.created_at).toLocaleDateString('ru-RU')}г.)</span>
+            </div>
+            <button
+              onClick={() => deleteTransaction(t.id)}
+              className="delete-btn"
+            >
+              Удалить
+            </button>
+          </div>
+        ))}
       </div>
-      <button
-        onClick={() => deleteTransaction(t.id)}
-        className="delete-btn"
-      >
-        Удалить
-      </button>
     </div>
-  ))}
-</div>
-</div>
-
   );
 }
 

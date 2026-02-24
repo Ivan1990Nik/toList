@@ -10,22 +10,22 @@ function Header({ user, title, setPage }) {
   const { profile } = useProfile(user);
 
   return (
-    <header className="header-header">  
-        <div className="header-nav">
-          <button
-            className={title === "Финансы" ? "active" : ""}
-            onClick={() => setPage("finance")}
-          >
-            <FaWallet size={15} />
-          </button>
-          <button
-            className={title === "Ежедневник" ? "active" : ""}
-            onClick={() => setPage("todo")}
-          >
-            <FaBook size={15} />
-          </button>
-        </div>
-        <h2>{title}</h2>
+    <header className="header-header">
+      <div className="header-nav">
+        <button
+          className={title === "Финансы" ? "active" : ""}
+          onClick={() => setPage("finance")}
+        >
+          <FaWallet size={25} />
+        </button>
+        <button
+          className={title === "Ежедневник" ? "active" : ""}
+          onClick={() => setPage("todo")}
+        >
+          <FaBook size={25} />
+        </button>
+      </div>
+      <h2>{title}</h2>
       {user && (
         <>
           <div className="header-auth">
