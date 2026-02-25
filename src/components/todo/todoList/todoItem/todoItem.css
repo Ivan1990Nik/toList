@@ -1,12 +1,10 @@
 .todo-row {
   display: grid;
-  grid-template-columns: 60px 1fr 80px 60px 40px;
+  grid-template-columns: 30px 1fr 50px ;
   align-items: center;
   gap: 5px;
-
   padding: 10px 12px;
   border-bottom: 1px solid #eee;
-
   transition: background 0.5s linear;
 }
 

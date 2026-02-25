@@ -1,4 +1,6 @@
+import { useState } from "react";
 import "./todoItem.css";
+import TodoModal from "../todoModal/TodoModal";
 
 function TodoItem({ todo, onToggle, onDelete }) {
   const getRemainingPercent = () => {
@@ -24,37 +26,43 @@ function TodoItem({ todo, onToggle, onDelete }) {
     return "green";
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   return (
-    <div
-      className="todo-row"
-      style={{
-        background: `linear-gradient(
-          to right,
-          ${getColor()} ${percent}%,
-          #36365a7c ${percent}%
+    <>
+      <div
+        onClick={openModal}
+        className="todo-row"
+        style={{
+          background: `linear-gradient(
+        to right,
+        ${getColor()} ${percent}%,
+        #36365a7c ${percent}%
         )`,
-      }}
-    >
-      <input
-        type="checkbox"
-        checked={todo.done}
-        onChange={() => onToggle(todo.id)}
-      />
+        }}
+      >
+        {/* ПРОЦЕНТЫ */}
+        <span className="percent">{todo.dueDate ? `${percent}%` : ""}</span>
 
-      <span className={todo.done ? "done" : ""}>{todo.title}</span>
+        <span className={todo.done ? "done" : ""}>{todo.title}</span>
 
-      <span>
-        {todo.dueDate
-          ? new Date(todo.dueDate).toLocaleDateString("ru-RU")
-          : "без срока"}
-      </span>
-
-      <button className="todo-delete" onClick={() => onDelete(todo.id)}>
-        X
-      </button>
-      {/* ПРОЦЕНТЫ */}
-      <span className="percent">{todo.dueDate ? `${percent}%` : ""}</span>
-    </div>
+        <button
+          className="todo-delete"
+          onClick={(e) => {
+            e.stopPropagation();
+            onDelete(todo.id);
+          }}
+        >
+          X
+        </button>
+      </div>
+      {isModalOpen && (
+        <TodoModal todo={todo} onToggle={onToggle} onClose={closeModal} />
+      )}
+    </>
   );
 }
 
