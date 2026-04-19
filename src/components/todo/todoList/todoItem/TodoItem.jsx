@@ -44,11 +44,16 @@ function TodoItem({ todo, onToggle, onDelete }) {
         )`,
         }}
       >
-        {/* ПРОЦЕНТЫ */}
+        {" "}
         <span className="percent">{todo.dueDate ? `${percent}%` : ""}</span>
-
+        <img
+          src={todo.image && todo.image !== "" ? todo.image : "/women.png"}
+          alt="todo"
+          className="todo-image"
+        />
+       
+        {/* ПРОЦЕНТЫ */}
         <span className={todo.done ? "done" : ""}>{todo.title}</span>
-
         <button
           className="todo-delete"
           onClick={(e) => {

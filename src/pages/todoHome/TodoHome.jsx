@@ -67,7 +67,7 @@ export default function TodoHome({ user }) {
               <h2>Выполненные</h2>
               <TodoList
                 todos={completedTodos}
-                onToggle={toggleTodo}
+                /* onToggle={toggleTodo} */
                 onDelete={deleteTodo}
               />
             </div>

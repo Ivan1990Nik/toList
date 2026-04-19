@@ -6,6 +6,7 @@ function TodoList({ todos, onToggle, onDelete }) {
     <div className="todo-table">
       <div className="todo-row">
         <div></div>
+        <div>изображение</div>
         <div>Название</div>
         <div>Удалить</div>
       </div>

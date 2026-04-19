@@ -1,6 +1,6 @@
 .todo-row {
   display: grid;
-  grid-template-columns: 30px 1fr 50px ;
+  grid-template-columns: 40px 30px 1fr 50px ;
   align-items: center;
   gap: 5px;
   padding: 10px 12px;
@@ -43,4 +43,13 @@
 .percent {
   font-weight: bold;
   text-align: center;
+}
+
+.todo-image {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;   /* 👈 важно */
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 10px;
 }

@@ -10,13 +10,17 @@ function TodoInput({ onAdd }) {
   const [value, setValue] = useState("medium"); // приоритет
   const [dueDate, setDueDate] = useState(""); // новая дата
 
+  // добовляем состояние для картинки
+  const [file, setFile] = useState(null);
+
   const handleAdd = () => {
     if (!title.trim()) return;
 
     onAdd({
       title,
       value,
-      dueDate, // передаем дату
+      dueDate,
+      file,  // передаем дату
     });
 
     // сброс формы
@@ -51,7 +55,12 @@ function TodoInput({ onAdd }) {
         value={dueDate}
         onChange={(e) => setDueDate(e.target.value)}
       />
-
+      <p>добавить изображение</p>
+      <input
+        type="file"
+        accept="image/*"
+        onChange={(e) => setFile(e.target.files[0])}
+      />
       {/* Приоритет */}
       <div className="priority-buttons">
         {priorities.map((p) => (

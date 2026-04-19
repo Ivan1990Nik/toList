@@ -34,28 +34,65 @@ export function useTodos(user) {
     fetchTodos();
   }, [user]); // ← Зависимость: user
 
-  const addTodo = async ({ title, value, dueDate }) => {
-    if (!user) return;
-    const { data, error } = await supabase
-      .from("todos")
-      .insert([{ title, done: false, importance: value, user_id: user.id, dueDate }])
-      .select()
-      .single();
-    if (error) console.error(error);
-    else setTodos((prev) => [...prev, data]);
-  };
+  const addTodo = async ({ title, value, dueDate, file }) => {
+  if (!user) return;
 
-  const toggleTodo = async (id, done) => {
-    const { data, error } = await supabase
-      .from("todos")
-      .update({ done: !done })
-      .eq("id", id)
-      .select()
-      .single();
-    if (error) console.error(error);
-    else setTodos((prev) => prev.map((t) => (t.id === id ? data : t)));
-  };
+  let imageUrl = null;
 
+  // 📦 1. Загружаем файл
+  if (file) {
+    const fileName = `${user.id}/${Date.now()}_${file.name}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from("todo-images")
+      .upload(fileName, file);
+
+    if (uploadError) {
+      console.error("Ошибка загрузки файла:", uploadError);
+      return;
+    }
+
+    const { data } = supabase.storage
+      .from("todo-images")
+      .getPublicUrl(fileName);
+
+    imageUrl = data.publicUrl;
+  }
+
+  // 🧠 2. Сохраняем задачу ВМЕСТЕ с картинкой
+  const { data, error } = await supabase
+    .from("todos")
+    .insert([
+      {
+        title,
+        done: false,
+        importance: value,
+        user_id: user.id,
+        dueDate,
+        image: imageUrl, // 👈 ВАЖНО
+      },
+    ])
+    .select()
+    .single();
+
+  if (error) {
+    console.error("Ошибка добавления:", error);
+  } else {
+    setTodos((prev) => [...prev, data]);
+  }
+};
+
+const toggleTodo = async (id, done) => {
+  const { data, error } = await supabase
+    .from("todos")
+    .update({ done: !done })
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) console.error(error);
+  else setTodos((prev) => prev.map((t) => (t.id === id ? data : t)));
+};
   const deleteTodo = async (id) => {
     const { error } = await supabase.from("todos").delete().eq("id", id);
     if (error) console.error(error);
@@ -74,6 +111,6 @@ export function useTodos(user) {
     deleteTodo,
     fetchTodos,
     loading, // ← ВОЗВРАЩАЕМ loading
-    error,   // ← И error для единообразия
+    error, // ← И error для единообразия
   };
 }

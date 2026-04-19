@@ -6,14 +6,6 @@ function TodoModal({ onClose, todo, onToggle }) {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <label className="checkbox-label">
-          <input
-            type="checkbox"
-            checked={todo.done}
-            onChange={() => onToggle(todo.id)}
-          />
-          выполнено
-        </label>
         <button className="modal-close" onClick={onClose}>
           ×
         </button>
@@ -32,7 +24,21 @@ function TodoModal({ onClose, todo, onToggle }) {
             ? new Date(todo.dueDate).toLocaleDateString("ru-RU")
             : "без срока"}
         </p>
-
+        <img
+          src={todo.image && todo.image !== "" ? todo.image : "/women.png"}
+          alt="todo"
+          className="todo-image__modal"
+        />
+        {!todo.done && (
+          <label className="checkbox-label">
+            отметить как выполнена -
+            <input
+              type="checkbox"
+              checked={todo.done}
+              onChange={() => onToggle(todo.id)}
+            />
+          </label>
+        )}
         <p>Статус: {todo.done ? "✅ выполнено" : "⏳ активно"}</p>
       </div>
     </div>
