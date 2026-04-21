@@ -11,7 +11,7 @@ export default function TodoHome({ user }) {
   return (
     <div className="dashboard">
       {/* Навигация */}
-      <nav className="dashbord-nav" style={{}}>
+      <nav className="dashbord-nav" >
         <NavLink
           end
           to="/todo"

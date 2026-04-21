@@ -4,6 +4,7 @@ import { useProfile } from "../../hooks/useProfile";
 
 import { FaBook } from "react-icons/fa";
 import { FaWallet } from "react-icons/fa";
+import { FaMusic } from "react-icons/fa";
 
 function Header({ user, title, setPage }) {
   const { signOut } = useAuth();
@@ -24,6 +25,16 @@ function Header({ user, title, setPage }) {
         >
           <FaBook size={25} />
         </button>
+
+      
+        <button
+          className={title === "Музыка" ? "active" : ""}
+          onClick={() => setPage("music")}
+        >
+          <FaMusic size={25} />
+        </button>
+      
+
       </div>
       <h2>{title}</h2>
       {user && (

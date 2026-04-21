@@ -1,6 +1,6 @@
 .todo-row {
   display: grid;
-  grid-template-columns: 40px 30px 1fr 50px ;
+  grid-template-columns: 25px 30px 1fr 50px ;
   align-items: center;
   gap: 5px;
   padding: 10px 12px;

@@ -51,7 +51,6 @@ function TodoItem({ todo, onToggle, onDelete }) {
           alt="todo"
           className="todo-image"
         />
-       
         {/* ПРОЦЕНТЫ */}
         <span className={todo.done ? "done" : ""}>{todo.title}</span>
         <button

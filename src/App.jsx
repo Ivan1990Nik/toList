@@ -5,6 +5,7 @@ import FinancialAssistantHome from "./pages/financialAssistantHome/FinancialAssi
 import TodoHome from "./pages/todoHome/TodoHome";
 import Header from "./components/header/Header";
 import { useState } from "react";
+import PlayListHome from "./pages/playListHome/PlayListHome";
 
 function App() {
   const { user } = useAuth();
@@ -17,6 +18,9 @@ function App() {
 
   if (user && page === "finance") {
     title = "Финансы";
+  }
+  if (user && page === "music") {
+    title = "Музыка";
   }
 
   // Обработка ошибок загрузки (оставляем как есть)
@@ -31,6 +35,8 @@ function App() {
       {user && page === "todo" && <TodoHome user={user} />}
 
       {user && page === "finance" && <FinancialAssistantHome user={user} />}
+
+      {user && page === "music" && <PlayListHome user={user} />}
     </div>
   );
 }

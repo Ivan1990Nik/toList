@@ -48,19 +48,22 @@ function TodoInput({ onAdd }) {
       />
 
       {/* Дата выполнения */}
-      <p>устоновить конечную дату</p>
+      <p className="style-inout__text">устоновить конечную дату</p>
       <input
         className="style-input"
         type="date"
         value={dueDate}
         onChange={(e) => setDueDate(e.target.value)}
       />
-      <p>добавить изображение</p>
-      <input
+      <div>
+
+      <p className="style-inout__text">добавить изображение</p>
+      <input className="style-input__img"
         type="file"
         accept="image/*"
         onChange={(e) => setFile(e.target.files[0])}
-      />
+        />
+        </div>
       {/* Приоритет */}
       <div className="priority-buttons">
         {priorities.map((p) => (
